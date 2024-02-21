@@ -105,3 +105,7 @@ test/tracking_basics/*.bak
 
 # temporary files
 *.tmp
+
+.devcontainer
+*.check_cache
+*.yaml
