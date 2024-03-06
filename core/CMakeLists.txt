@@ -8,8 +8,14 @@ include_directories(include)
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+include_directories("${CMAKE_CURRENT_BINARY_DIR}/include")
 
+find_package(GMP REQUIRED)
 find_package(MPFR REQUIRED)
+find_package(MPC REQUIRED)
+
+include_directories(${GMP_INCLUDES})
+include_directories(${MPC_INCLUDES})
 
 find_package(Boost 1.82 REQUIRED
                 COMPONENTS 
@@ -26,7 +32,8 @@ find_package(Boost 1.82 REQUIRED
 )
 
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
-#find_package(gmp REQUIRED)
+
+configure_file(config.h.in include/bertini2/config.h)
 
 # This was from a makemodule.am, take the lists and define them in seperate blocks with the variables they already have, then add the variable name to library_headrs
 set(endgames_headers
@@ -42,7 +49,7 @@ set(endgames_headers
 	include/bertini2/endgames/prec_base.hpp
 )
 
-set (basics_headers
+set (basics_rootinclude_headers
     include/bertini2/have_bertini.hpp
     include/bertini2/mpfr_extensions.hpp
     include/bertini2/mpfr_complex.hpp
@@ -61,7 +68,7 @@ set (common_headers
     include/bertini2/common/stream_enum.hpp
 )
 
-set(details_headers
+set(detail_headers
     include/bertini2/detail/configured.hpp
     include/bertini2/detail/events.hpp
     include/bertini2/detail/visitable.hpp
@@ -71,19 +78,6 @@ set(details_headers
     include/bertini2/detail/is_template_parameter.hpp
     include/bertini2/detail/enable_permuted_arguments.hpp
     include/bertini2/detail/typelist.hpp
-)
-
-set(endgames_headers
-    include/bertini2/endgames/amp_endgame.hpp
-    include/bertini2/endgames/base_endgame.hpp
-    include/bertini2/endgames/cauchy.hpp
-    include/bertini2/endgames/config.hpp
-    include/bertini2/endgames/events.hpp
-    include/bertini2/endgames/fixed_prec_endgame.hpp
-    include/bertini2/endgames/interpolation.hpp
-    include/bertini2/endgames/observers.hpp
-    include/bertini2/endgames/powerseries.hpp
-    include/bertini2/endgames/prec_base.hpp
 )
 
 set(function_tree_headers
@@ -116,13 +110,13 @@ set(functiontreeinclude_HEADERS
 	include/bertini2/function_tree/simplify.hpp
 )
 
-set(functiontree_operatorsinclude_HEADERS
+set(functiontree_operators_HEADERS
 	include/bertini2/function_tree/operators/operator.hpp 
 	include/bertini2/function_tree/operators/arithmetic.hpp 
 	include/bertini2/function_tree/operators/trig.hpp
 )
 
-set(functiontree_symbolsinclude_HEADERS
+set(functiontree_symbols_HEADERS
 	include/bertini2/function_tree/symbols/symbol.hpp 
 	include/bertini2/function_tree/symbols/variable.hpp 
 	include/bertini2/function_tree/symbols/differential.hpp 
@@ -131,7 +125,7 @@ set(functiontree_symbolsinclude_HEADERS
     include/bertini2/function_tree/symbols/linear_product.hpp
 )
 
-set(functiontree_rootsinclude_HEADERS
+set(functiontree_roots_HEADERS
 	include/bertini2/function_tree/roots/function.hpp 
 	include/bertini2/function_tree/roots/jacobian.hpp
 )
@@ -141,6 +135,9 @@ set(io_headers
     include/bertini2/io/generators.hpp
     include/bertini2/io/parsing.hpp
     include/bertini2/io/splash.hpp
+)
+
+set (io_parsing_headers
     include/bertini2/io/parsing/classic_utilities.hpp
     include/bertini2/io/parsing/function_parsers.hpp
     include/bertini2/io/parsing/function_rules.hpp
@@ -151,13 +148,16 @@ set(io_headers
     include/bertini2/io/parsing/settings_rules.hpp
     include/bertini2/io/parsing/system_parsers.hpp
     include/bertini2/io/parsing/system_rules.hpp 
+)
+
+set (io_parsing_settings_headers
     include/bertini2/io/parsing/settings_parsers/algorithm.hpp
     include/bertini2/io/parsing/settings_parsers/base.hpp
     include/bertini2/io/parsing/settings_parsers/endgames.hpp
     include/bertini2/io/parsing/settings_parsers/tracking.hpp
 )
 
-set(nag_algorithms_base_headers
+set(nag_algorithms_headers
 	include/bertini2/nag_algorithms/midpath_check.hpp
 	include/bertini2/nag_algorithms/numerical_irreducible_decomposition.hpp
 	include/bertini2/nag_algorithms/output.hpp
@@ -172,7 +172,7 @@ set(nag_algorithms_common_headers
     include/bertini2/nag_algorithms/common/policies.hpp
 )
 
-set(nag_datatypes_base_headers
+set(nag_datatypes_headers
 	include/bertini2/nag_datatypes/numerical_irreducible_decomposition.hpp
 	include/bertini2/nag_datatypes/witness_set.hpp
 )
@@ -182,7 +182,6 @@ set(nag_datatypes_common_headers
 )
 
 set(parallel_headers
-    include/bertini2/parallel.hpp
     include/bertini2/parallel/initialize_finalize.hpp
 )
 
@@ -195,8 +194,7 @@ set(pool_headers
     include/bertini2/pool/system.hpp 
 )
 
-set(system_header_files
-	include/bertini2/system.hpp
+set(system_headers
 	include/bertini2/system/patch.hpp
 	include/bertini2/system/precon.hpp
 	include/bertini2/system/slice.hpp
@@ -204,6 +202,9 @@ set(system_header_files
 	include/bertini2/system/start_systems.hpp
 	include/bertini2/system/straight_line_program.hpp
 	include/bertini2/system/system.hpp
+)
+
+set(system_start_headers
 	include/bertini2/system/start/total_degree.hpp
 	include/bertini2/system/start/mhom.hpp
 	include/bertini2/system/start/user.hpp
@@ -214,27 +215,7 @@ set(system_rootinclude_HEADERS
 	include/bertini2/system.hpp
 )
 
-set(systeminclude_HEADERS
-	include/bertini2/system/patch.hpp
-	include/bertini2/system/precon.hpp
-	include/bertini2/system/slice.hpp
-	include/bertini2/system/start_base.hpp
-	include/bertini2/system/start_systems.hpp
-	include/bertini2/system/system.hpp
-	include/bertini2/system/straight_line_program.hpp
-	include/bertini2/system/start/mhom.hpp
-	include/bertini2/system/start/user.hpp
-	include/bertini2/system/start/utility.hpp
-)
-
-set(startinclude_HEADERS
-	include/bertini2/system/start/total_degree.hpp
-	include/bertini2/system/start/mhom.hpp
-	include/bertini2/system/start/user.hpp
-	include/bertini2/system/start/utility.hpp
-)
-
-set(tracking_include_HEADERS
+set(trackers_HEADERS
 	include/bertini2/trackers/adaptive_precision_utilities.hpp
 	include/bertini2/trackers/amp_criteria.hpp
 	include/bertini2/trackers/amp_tracker.hpp
@@ -252,36 +233,8 @@ set(tracking_include_HEADERS
 	include/bertini2/trackers/config.hpp
 )
 
-set(tracking_header_files
-	include/bertini2/tracking.hpp 
-)
-
 set(tracking_rootinclude_HEADERS
 	include/bertini2/tracking.hpp
-)
-
-set(trackersinclude_HEADERS
-	include/bertini2/trackers/adaptive_precision_utilities.hpp
-	include/bertini2/trackers/amp_criteria.hpp
-	include/bertini2/trackers/amp_tracker.hpp
-	include/bertini2/trackers/base_predictor.hpp
-	include/bertini2/trackers/base_tracker.hpp
-	include/bertini2/trackers/events.hpp
-	include/bertini2/trackers/explicit_predictors.hpp
-	include/bertini2/trackers/fixed_precision_tracker.hpp
-	include/bertini2/trackers/fixed_precision_utilities.hpp
-	include/bertini2/trackers/newton_correct.hpp
-	include/bertini2/trackers/newton_corrector.hpp
-	include/bertini2/trackers/observers.hpp
-	include/bertini2/trackers/ode_predictors.hpp
-	include/bertini2/trackers/predict.hpp
-	include/bertini2/trackers/step.hpp
-	include/bertini2/trackers/tracker.hpp
-	include/bertini2/trackers/config.hpp 
-)
-
-set(tracking_header_files#Include this with one of the tracking headers
-	include/bertini2/tracking.hpp 
 )
 
 set(BERTINI2_LIBRARY_HEADERS
@@ -289,21 +242,23 @@ set(BERTINI2_LIBRARY_HEADERS
     ${basics_headers}
     ${common_headers}
     ${details_headers}
-    ${endgames_headers}
     ${function_tree_headers}
     ${io_headers}
-    ${nag_algorithms_base_headers}
+    ${io_parsing_headers}
+    ${io_parsing_settings_headers}
+    ${nag_algorithms_headers}
     ${nag_algorithms_common_headers}
-    ${nag_datatypes_base_headers}
+    ${nag_datatypes_headers}
     ${nag_datatypes_common_headers}
     ${parallel_headers}
     ${parallel_rootinclude_HEADERS}
     ${pool_headers}
-    ${system_header_files}
+    ${system_headers}
+    ${system_start_headers}
     ${system_rootinclude_HEADERS}
     ${systeminclude_HEADERS}
     ${startinclude_HEADERS}
-    ${tracking_include_HEADERS}
+    ${trackers_HEADERS}
     ${tracking_header_files}
     ${tracking_rootinclude_HEADERS}
     ${trackersinclude_HEADERS}
@@ -384,12 +339,12 @@ add_library(bertini2
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBOOST_PHOENIX_STL_TUPLE_H_")
 
 
-target_link_libraries(bertini2_exe ${Boost_LIBRARIES} bertini2)
+target_link_libraries(bertini2 ${GMP_LIBRARIES})
+target_link_libraries(bertini2 ${MPFR_LIBRARIES})
+target_link_libraries(bertini2 ${MPC_LIBRARIES})
 target_link_libraries(bertini2 ${Boost_LIBRARIES})
 target_link_libraries(bertini2 Eigen3::Eigen)
-target_link_libraries(bertini2 mpfr)
-target_link_libraries(bertini2 gmp)
-target_link_libraries(bertini2 mpc)
+target_link_libraries(bertini2_exe ${Boost_LIBRARIES} bertini2)
 
 
 
@@ -401,7 +356,186 @@ target_link_libraries(bertini2 mpc)
 target_compile_options(bertini2 PRIVATE -Wall -Wextra)
 
 
-# Repeat this set list and target_link_libraries and add_test for the rest of the folders in the test folder *The one below is for the classes folder
+
+install( 
+    TARGETS bertini2
+    ARCHIVE DESTINATION "lib"
+    LIBRARY DESTINATION "lib"
+    COMPONENT library
+) 
+
+install(
+    FILES ${function_tree_headers_rootinclude_HEADERS} ${parallel_rootinclude_HEADERS} ${system_rootinclude_HEADERS} ${tracking_rootinclude_HEADERS} ${parallel_rootinclude_HEADERS} ${system_rootinclude_HEADERS} ${tracking_rootinclude_HEADERS}
+    DESTINATION "include/bertini2"
+)
+
+install(
+    FILES ${endgames_headers}
+    DESTINATION "include/bertini2/endgames"
+) 
+
+install(
+    FILES ${trackers_headers}
+    DESTINATION "include/bertini2/trackers"
+) 
+
+install(
+    FILES ${basics_rootinclude_headers}
+    DESTINATION "include/bertini2"
+) 
+
+install(
+    FILES ${common_headers}
+    DESTINATION "include/bertini2/common"
+) 
+
+install(
+    FILES ${detail_headers}
+    DESTINATION "include/bertini2/detail"
+) 
+
+install(
+    FILES ${function_tree_headers}
+    DESTINATION "include/bertini2/function_tree"
+) 
+
+install(
+    FILES ${function_tree_headers_rootinclude_HEADERS}#
+    DESTINATION "include/bertini2"
+) 
+
+install(
+    FILES ${functiontree_operators_HEADERS}
+    DESTINATION "include/bertini2/function_tree/operators"
+) 
+
+install(
+    FILES ${functiontree_symbols_HEADERS}
+    DESTINATION "include/bertini2/function_tree/symbols"
+) 
+
+install(
+    FILES ${functiontree_roots_HEADERS}
+    DESTINATION "include/bertini2/roots/"
+) 
+
+install(
+    FILES ${io_headers}
+    DESTINATION "include/bertini2/io"
+) 
+
+install(
+    FILES ${io_parsing_headers}
+    DESTINATION "include/bertini2/io/parsing"
+) 
+
+install(
+    FILES ${io_parsing_settings_headers}
+    DESTINATION "include/bertini2/io/parsing/settings_parsers"
+) 
+
+install(
+    FILES ${nag_algorithms_headers}
+    DESTINATION "include/bertini2/nag_algorithms"
+) 
+
+install(
+    FILES ${nag_algorithms_common_headers}
+    DESTINATION "include/bertini2/nag_algorithms/common"
+) 
+
+install(
+    FILES ${nag_datatypes_headers}
+    DESTINATION "include/bertini2/nag_datatypes"
+) 
+
+install(
+    FILES ${nag_datatypes_common_headers}
+    DESTINATION "include/bertini2/nag_datatypes/common"
+) 
+
+install(
+    FILES ${parallel_headers}
+    DESTINATION "include/bertini2/parallel"
+) 
+
+install(
+    FILES ${parallel_rootinclude_HEADERS}
+    DESTINATION "include/bertini2"
+) 
+
+install(
+    FILES ${pool_headers}
+    DESTINATION "include/bertini2/pool"
+) 
+
+install(
+    FILES ${system_headers}
+    DESTINATION "include/bertini2/system"
+) 
+
+install(
+    FILES ${system_start_headers}
+    DESTINATION "include/bertini2/system/start"
+) 
+
+install(
+    FILES ${system_rootinclude_HEADERS}
+    DESTINATION "include/bertini2"
+) 
+
+install(
+    FILES ${tracking_rootinclude_HEADERS}
+    DESTINATION "include/bertini2"
+) 
+
+install(
+    FILES ${trackers_HEADERS}
+    DESTINATION "include/bertini2/trackers"
+) 
+
+install(
+    FILES ${tracking_header_files}
+    DESTINATION "include/bertini2/tracking"
+) 
+
+install(
+    FILES ${basics_sources}
+    DESTINATION "include/bertini2/basics"
+) 
+
+install(
+    FILES ${function_tree_sources}
+    DESTINATION "include/bertini2/function_tree"
+) 
+
+install(
+    FILES ${parallel_sources}
+    DESTINATION "include/bertini2/parallel"
+) 
+
+install(
+    FILES ${system_source_files}
+    DESTINATION "include/bertini2/system"
+) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 set(B2_CLASS_TEST_SOURCES
     test/classes/boost_multiprecision_test.cpp 
     test/classes/fundamentals_test.cpp 
@@ -422,11 +556,14 @@ set(B2_CLASS_TEST_SOURCES
     test/classes/class_test.cpp 
 )
 
+
+
 add_executable(b2_class_test ${B2_CLASS_TEST_SOURCES})
+target_include_directories(b2_class_test PUBLIC
+                                         ${CMAKE_CURRENT_SOURCE_DIR}/test/classes)
 target_link_libraries(b2_class_test ${Boost_LIBRARIES} bertini2)
 add_test(NAME b2_class_test COMMAND ${CMAKE_BINARY_DIR}/bin/b2_class_test)
 
-# DO THE REST OF THE TESTS
 
 set(B2_BLACKBOX_TEST
     test/blackbox/blackbox.cpp
@@ -540,22 +677,9 @@ set(B2_TRACKING_BASICS_TEST
 enable_testing()
 
 
-install( 
-    TARGETS bertini2
-    ARCHIVE DESTINATION "lib"
-    LIBRARY DESTINATION "lib"
-    COMPONENT library
-) 
 
-install(
-    FILES ${function_tree_headers_rootinclude_HEADERS} ${parallel_rootinclude_HEADERS} ${system_rootinclude_HEADERS} ${tracking_rootinclude_HEADERS} ${parallel_rootinclude_HEADERS} ${system_rootinclude_HEADERS} ${tracking_rootinclude_HEADERS}
-    DESTINATION "include/bertini2"
-)
 
-install(
-    FILES ${endgames_headers}
-    DESTINATION "include/bertini2/endgames"
 
-) # This is a template for all of the set variables in the beggining of this file, just headers, not sources
+# This is a template for all of the set variables in the beggining of this file, just headers, not sources
 
 # To test, the /usr/local/include/bertini2 strcuture should mirror the structure of this folder (core/include)

@@ -6,7 +6,6 @@ project(pybertini)
 #file(GLOB SOURCES src/*.cpp)
 include_directories(include)
 
-
 #Builds a C++ library and the python bindings around it
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
@@ -27,8 +26,6 @@ find_package(Boost 1.82 REQUIRED
                     log_setup
 )
 
-# NEXT STEP : INSTALL BOOSTPYTHON
-
 # Find python and Boost - both are required dependencies
 find_package(Python3 REQUIRED)
 find_package(PythonLibs 3.12 REQUIRED)
@@ -40,7 +37,7 @@ set(CMAKE_SHARED_MODULE_PREFIX "")
 find_package(Eigen3 3.3 REQUIRED)
 find_package(eigenpy 3.3 REQUIRED)
 #find_package(gmp REQUIRED)
-
+find_package(bertini2 REQUIRED)
 
 set(PYBERTINI_HEADERS
     include/bertini_python.hpp
@@ -89,3 +86,15 @@ set(PYBERTINI_SOURCES
 
 
 add_library(_pybertini SHARED ${PYBERTINI_SOURCES} ${PYBERTINI_HEADERS})
+
+include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${PYTHON_INCLUDE_DIRS})
+include_directories(${Bertini2_INCLUDES})
+
+
+target_link_libraries(_pybertini ${Boost_LIBRARIES})
+target_link_libraries(_pybertini Eigen3::Eigen)
+target_link_libraries(_pybertini mpfr)
+target_link_libraries(_pybertini gmp)
+target_link_libraries(_pybertini mpc)
+target_link_libraries(_pybertini ${Bertini2_LIBRARIES})

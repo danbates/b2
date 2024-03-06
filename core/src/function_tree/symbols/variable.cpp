@@ -24,7 +24,7 @@
 // Jeb Collins, West Texas A&M
 
 
-#include "function_tree/symbols/variable.hpp"
+#include "bertini2/function_tree/symbols/variable.hpp"
 
 #include "bertini2/eigen_extensions.hpp"
 

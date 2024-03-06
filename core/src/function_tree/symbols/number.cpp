@@ -24,7 +24,7 @@
 // Jeb Collins, West Texas A&M
 
 
-#include "function_tree/symbols/number.hpp"
+#include "bertini2/function_tree/symbols/number.hpp"
 
 
 

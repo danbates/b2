@@ -28,7 +28,7 @@
 //  Spring 2018
 
 
-#include "function_tree/roots/jacobian.hpp"
+#include "bertini2/function_tree/roots/jacobian.hpp"
 
 
 

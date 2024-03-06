@@ -31,7 +31,7 @@
 
 
 
-#include "eigen_extensions.hpp"
+#include "bertini2/eigen_extensions.hpp"
 
 #include <Eigen/Dense>
 #include <Eigen/LU>

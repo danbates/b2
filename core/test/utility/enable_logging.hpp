@@ -32,7 +32,7 @@
 
 #pragma once
 
-#include "logging.hpp"
+#include "bertini2/logging.hpp"
 
 struct LogInitter
 {
