@@ -5,12 +5,20 @@ project(pybertini)
 # We can either explicitly list all files or use glob better
 #file(GLOB SOURCES src/*.cpp)
 include_directories(include)
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
+
 
 #Builds a C++ library and the python bindings around it
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
+find_package(GMP REQUIRED)
 find_package(MPFR REQUIRED)
+find_package(MPC REQUIRED)
+
+include_directories(${GMP_INCLUDES})
+include_directories(${MPC_INCLUDES})
+
 
 find_package(Boost 1.82 REQUIRED
                 COMPONENTS 
@@ -27,16 +35,15 @@ find_package(Boost 1.82 REQUIRED
 )
 
 # Find python and Boost - both are required dependencies
-find_package(Python3 REQUIRED)
-find_package(PythonLibs 3.12 REQUIRED)
-find_package(Boost COMPONENTS python312 REQUIRED)
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development.Module NumPy)
+#find_package(PythonLibs 3.11 REQUIRED)
+find_package(Boost COMPONENTS python311 REQUIRED)
 
 # Without this, any build libraries automatically have names "lib{x}.so"
 set(CMAKE_SHARED_MODULE_PREFIX "")
 
-find_package(Eigen3 3.3 REQUIRED)
-find_package(eigenpy 3.3 REQUIRED)
-#find_package(gmp REQUIRED)
+find_package(Eigen3 3.3 REQUIRED NO_MODULE)
+find_package(eigenpy 3.3 REQUIRED CONFIG)
 find_package(bertini2 REQUIRED)
 
 set(PYBERTINI_HEADERS
@@ -89,6 +96,7 @@ add_library(_pybertini SHARED ${PYBERTINI_SOURCES} ${PYBERTINI_HEADERS})
 
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${PYTHON_INCLUDE_DIRS})
+include_directories(${Python3_NumPy_INCLUDE_DIRS})
 include_directories(${Bertini2_INCLUDES})
 
 

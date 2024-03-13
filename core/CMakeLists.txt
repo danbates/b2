@@ -60,7 +60,8 @@ set (basics_rootinclude_headers
     include/bertini2/classic.hpp
     include/bertini2/eigen_extensions.hpp
     include/bertini2/logging.hpp
-    include/bertini2/config.h
+    "${CMAKE_CURRENT_BINARY_DIR}/include/bertini2/config.h"
+    include/bertini2/bertini.hpp
 )
 
 set (common_headers
@@ -518,20 +519,6 @@ install(
     FILES ${system_source_files}
     DESTINATION "include/bertini2/system"
 ) 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
