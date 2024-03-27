@@ -45,7 +45,7 @@ using Variable = bertini::node::Variable;
 using Var = std::shared_ptr<Variable>;
 
 using VariableGroup = bertini::VariableGroup;
-using bertini::Variable::Make;
+
 
 using dbl = std::complex<double>;
 using mpfr = bertini::mpfr_complex;

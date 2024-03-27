@@ -34,6 +34,8 @@
 #include "bertini2/nag_algorithms/output.hpp"
 
 
+using Variable = bertini::node::Variable;
+
 BOOST_AUTO_TEST_SUITE(zero_dim)
 
 using TrackerT = bertini::tracking::DoublePrecisionTracker;
