@@ -226,7 +226,7 @@ public:
 			*/
 			bool IsConsistent() const
 			{
-				return (GetSystem().NumVariables() - GetSystem().NumFunctions()) == GetSlice().Dimension();
+				return (GetSystem().NumVariables() - GetSystem().NumNaturalFunctions()) == GetSlice().Dimension();
 			}
 
 

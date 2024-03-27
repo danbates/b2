@@ -62,8 +62,7 @@ using mpfr_float = bertini::mpfr_float;
 template<typename NumType> using Vec = bertini::Vec<NumType>;
 template<typename NumType> using Mat = bertini::Mat<NumType>;
 
-using bertini::MakeFloat;
-using bertini::Variable::Make;
+
 using bertini::Precision;
 using bertini::DefaultPrecision;
 
@@ -569,7 +568,7 @@ BOOST_AUTO_TEST_CASE(monodromy_RKF45_d)
 	
 	bertini::System sys;
 	Var x = Variable::Make("x"), y = Variable::Make("y"), t = Variable::Make("t");
-	std::shared_ptr<Float> half = MakeFloat("0.5");
+	std::shared_ptr<Float> half = Float::Make("0.5");
 	
 	VariableGroup vars{x,y};
 	
@@ -648,7 +647,7 @@ BOOST_AUTO_TEST_CASE(monodromy_RKF45_mp)
 	
 	bertini::System sys;
 	Var x = Variable::Make("x"), y = Variable::Make("y"), t = Variable::Make("t");
-	std::shared_ptr<Float> half = MakeFloat("0.5");
+	std::shared_ptr<Float> half = Float::Make("0.5");
 	
 	VariableGroup vars{x,y};
 	
@@ -919,7 +918,7 @@ BOOST_AUTO_TEST_CASE(monodromy_RKCK45_d)
 	
 	bertini::System sys;
 	Var x = Variable::Make("x"), y = Variable::Make("y"), t = Variable::Make("t");
-	std::shared_ptr<Float> half = MakeFloat("0.5");
+	std::shared_ptr<Float> half = Float::Make("0.5");
 	
 	VariableGroup vars{x,y};
 	
@@ -998,7 +997,7 @@ BOOST_AUTO_TEST_CASE(monodromy_RKCK45_mp)
 	
 	bertini::System sys;
 	Var x = Variable::Make("x"), y = Variable::Make("y"), t = Variable::Make("t");
-	std::shared_ptr<Float> half = MakeFloat("0.5");
+	std::shared_ptr<Float> half = Float::Make("0.5");
 	
 	VariableGroup vars{x,y};
 	
@@ -1081,7 +1080,7 @@ BOOST_AUTO_TEST_CASE(monodromy_RKCK45_mp_change_precision)
 	
 	bertini::System sys;
 	Var x = Variable::Make("x"), y = Variable::Make("y"), t = Variable::Make("t");
-	std::shared_ptr<Float> half = MakeFloat("0.5");
+	std::shared_ptr<Float> half = Float::Make("0.5");
 	
 	VariableGroup vars{x,y};
 	
@@ -1537,7 +1536,7 @@ BOOST_AUTO_TEST_CASE(monodromy_RKDP56_d)
 	
 	bertini::System sys;
 	Var x = Variable::Make("x"), y = Variable::Make("y"), t = Variable::Make("t");
-	std::shared_ptr<Float> half = MakeFloat("0.5");
+	std::shared_ptr<Float> half = Float::Make("0.5");
 	
 	VariableGroup vars{x,y};
 	
@@ -1616,7 +1615,7 @@ BOOST_AUTO_TEST_CASE(monodromy_RKDP56_mp)
 	
 	bertini::System sys;
 	Var x = Variable::Make("x"), y = Variable::Make("y"), t = Variable::Make("t");
-	std::shared_ptr<Float> half = MakeFloat("0.5");
+	std::shared_ptr<Float> half = Float::Make("0.5");
 	
 	VariableGroup vars{x,y};
 	
@@ -1874,7 +1873,7 @@ BOOST_AUTO_TEST_CASE(monodromy_RKV67_d)
 	
 	bertini::System sys;
 	Var x = Variable::Make("x"), y = Variable::Make("y"), t = Variable::Make("t");
-	std::shared_ptr<Float> half = MakeFloat("0.5");
+	std::shared_ptr<Float> half = Float::Make("0.5");
 	
 	VariableGroup vars{x,y};
 	
@@ -1953,7 +1952,7 @@ BOOST_AUTO_TEST_CASE(monodromy_RKV67_mp)
 	
 	bertini::System sys;
 	Var x = Variable::Make("x"), y = Variable::Make("y"), t = Variable::Make("t");
-	std::shared_ptr<Float> half = MakeFloat("0.5");
+	std::shared_ptr<Float> half = Float::Make("0.5");
 	
 	VariableGroup vars{x,y};
 	

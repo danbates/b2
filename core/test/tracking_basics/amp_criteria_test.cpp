@@ -50,7 +50,7 @@ using Variable = bertini::node::Variable;
 using Var = std::shared_ptr<Variable>;
 
 using VariableGroup = bertini::VariableGroup;
-using bertini::Variable::Make;
+
 
 using mpq_rational = bertini::mpq_rational;
 using dbl = std::complex<double>;

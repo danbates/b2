@@ -50,7 +50,7 @@ using VariableGroup = bertini::VariableGroup;
 using dbl = std::complex<double>;
 using mpfr = bertini::mpfr_complex;
 using mpfr_float = bertini::mpfr_float;
-using bertini::Variable::Make;
+
 
 template<typename NumType> using Vec = bertini::Vec<NumType>;
 template<typename NumType> using Mat = bertini::Mat<NumType>;

@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_SUITE(newton_correct_tracking_basics)
 
 using System = bertini::System;
 using Variable = bertini::node::Variable;
-using bertini::Variable::Make;
+
 using Var = std::shared_ptr<Variable>;
 
 using VariableGroup = bertini::VariableGroup;

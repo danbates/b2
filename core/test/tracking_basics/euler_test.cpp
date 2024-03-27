@@ -51,7 +51,7 @@ using Float = bertini::node::Float;
 using ExplicitRKPredictor = bertini::tracking::predict::ExplicitRKPredictor;
 
 using Var = std::shared_ptr<Variable>;
-using bertini::Variable::Make;
+
 using VariableGroup = bertini::VariableGroup;
 
 
