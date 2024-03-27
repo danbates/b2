@@ -32,7 +32,7 @@ using Variable = bertini::node::Variable;
 using Var = std::shared_ptr<Variable>;
 
 using VariableGroup = bertini::VariableGroup;
-using bertini::Variable::Make;
+
 using mpq_rational = bertini::mpq_rational;
 using mpfr_float = bertini::mpfr_float;
 using mpz_int = bertini::mpz_int;
@@ -431,7 +431,7 @@ BOOST_AUTO_TEST_CASE(zero_row_in_degree_matrix)
 	sys.AddVariableGroup(v2);
 
 	sys.AddFunction(pow(x1,2) + pow(x2,2));
-	sys.AddFunction(bertini::Integer::Make(1));
+	sys.AddFunction(bertini::node::Integer::Make(1));
 
 	BOOST_CHECK_THROW(auto mhom_start_system = bertini::start_system::MHomogeneous(sys), std::runtime_error);
 
