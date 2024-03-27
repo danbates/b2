@@ -60,6 +60,7 @@ set (basics_rootinclude_headers
     include/bertini2/classic.hpp
     include/bertini2/eigen_extensions.hpp
     include/bertini2/logging.hpp
+    include/bertini2/endgames.hpp
     "${CMAKE_CURRENT_BINARY_DIR}/include/bertini2/config.h"
     include/bertini2/bertini.hpp
 )
@@ -325,8 +326,11 @@ set(BERTINI2_EXE_HEADERS
     include/bertini2/blackbox/main_mode_switch.hpp 
     include/bertini2/blackbox/argc_argv.hpp 
     include/bertini2/blackbox/config.hpp
+    include/bertini2/blackbox/algorithm_builder.hpp
+    include/bertini2/blackbox/global_configs.hpp
+    include/bertini2/blackbox/switches_zerodim.hpp
+    include/bertini2/blackbox/user_homotopy.hpp
 )
-
 
 add_executable(bertini2_exe ${BERTINI2_EXE_SOURCES} ${BERTINI2_EXE_HEADERS})
 set_property(TARGET bertini2_exe PROPERTY OUTPUT_NAME bertini2)
@@ -348,14 +352,10 @@ target_link_libraries(bertini2 Eigen3::Eigen)
 target_link_libraries(bertini2_exe ${Boost_LIBRARIES} bertini2)
 
 
-
-
-
 # Compile flags	include/bertini2/common/config.hpp \
 #	include/bertini2/common/stream_enum.hpp
 
 target_compile_options(bertini2 PRIVATE -Wall -Wextra)
-
 
 
 install( 
@@ -364,6 +364,11 @@ install(
     LIBRARY DESTINATION "lib"
     COMPONENT library
 ) 
+
+install(
+    FILES $(BERTINI2_EXE_HEADERS)
+    DESTINATION "include/bertini2/blackbox"
+)
 
 install(
     FILES ${function_tree_headers_rootinclude_HEADERS} ${parallel_rootinclude_HEADERS} ${system_rootinclude_HEADERS} ${tracking_rootinclude_HEADERS} ${parallel_rootinclude_HEADERS} ${system_rootinclude_HEADERS} ${tracking_rootinclude_HEADERS}
@@ -417,7 +422,7 @@ install(
 
 install(
     FILES ${functiontree_roots_HEADERS}
-    DESTINATION "include/bertini2/roots/"
+    DESTINATION "include/bertini2/function_tree/roots/"
 ) 
 
 install(
@@ -501,27 +506,9 @@ install(
 ) 
 
 install(
-    FILES ${basics_sources}
-    DESTINATION "include/bertini2/basics"
-) 
-
-install(
-    FILES ${function_tree_sources}
-    DESTINATION "include/bertini2/function_tree"
-) 
-
-install(
-    FILES ${parallel_sources}
-    DESTINATION "include/bertini2/parallel"
-) 
-
-install(
     FILES ${system_source_files}
     DESTINATION "include/bertini2/system"
 ) 
-
-
-
 
 set(B2_CLASS_TEST_SOURCES
     test/classes/boost_multiprecision_test.cpp 
@@ -542,7 +529,6 @@ set(B2_CLASS_TEST_SOURCES
     test/classes/m_hom_start_system.cpp 
     test/classes/class_test.cpp 
 )
-
 
 
 add_executable(b2_class_test ${B2_CLASS_TEST_SOURCES})
@@ -658,14 +644,7 @@ set(B2_TRACKING_BASICS_TEST
 )
 
 
-
-
-
 enable_testing()
-
-
-
-
 
 # This is a template for all of the set variables in the beggining of this file, just headers, not sources
 
