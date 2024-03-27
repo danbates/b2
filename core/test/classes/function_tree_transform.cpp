@@ -41,9 +41,12 @@
 
 using Nd = std::shared_ptr<bertini::node::Node>;
 
-using bertini::Variable::Make;
-using bertini::Integer::Make;
-using bertini::Rational::Make;
+using Variable = bertini::node::Variable;
+using Node = bertini::node::Node;
+using Integer = bertini::node::Integer;
+using Rational = bertini::node::Rational;
+using SumOperator = bertini::node::SumOperator;
+using MultOperator = bertini::node::MultOperator;
 
 using dbl = bertini::dbl;
 

@@ -40,6 +40,7 @@ BOOST_AUTO_TEST_SUITE(linear_slicing)
 
 using namespace bertini;
 using Var = std::shared_ptr<bertini::node::Variable>;
+using Variable = bertini::node::Variable;
 
 using bertini::DefaultPrecision;
 
