@@ -3,6 +3,8 @@
 # Try to find the GNU Multiple Precision Arithmetic Library (GMP)
 # See http://gmplib.org/
 
+# In order to find gmp installed with conda, run 'conda activate' and use 'cmake .. -DCMAKE_PREFIX_PATH=$CONDA_PREFIX'
+
 if (GMP_INCLUDES AND GMP_LIBRARIES)
   set(GMP_FIND_QUIETLY TRUE)
 endif (GMP_INCLUDES AND GMP_LIBRARIES)

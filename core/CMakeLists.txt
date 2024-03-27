@@ -59,6 +59,7 @@ set (basics_rootinclude_headers
     include/bertini2/num_traits.hpp
     include/bertini2/classic.hpp
     include/bertini2/eigen_extensions.hpp
+    include/bertini2/eigen_serialization_addon.hpp
     include/bertini2/logging.hpp
     include/bertini2/endgames.hpp
     "${CMAKE_CURRENT_BINARY_DIR}/include/bertini2/config.h"
@@ -85,7 +86,6 @@ set(detail_headers
 set(function_tree_headers
     include/bertini2/function_tree.hpp
     include/bertini2/function_tree/node.hpp
-    include/bertini2/function_tree/factory.hpp
     include/bertini2/function_tree/forward_declares.hpp
     include/bertini2/function_tree/simplify.hpp
     include/bertini2/function_tree/operators/operator.hpp
@@ -103,6 +103,10 @@ set(function_tree_headers
 
 set(function_tree_headers_rootinclude_HEADERS
 	include/bertini2/function_tree.hpp
+)
+
+set(settings_headers
+    include/bertini2/settings/configIni_parse.hpp
 )
 
 set(functiontreeinclude_HEADERS
@@ -499,6 +503,11 @@ install(
     FILES ${trackers_HEADERS}
     DESTINATION "include/bertini2/trackers"
 ) 
+
+install(
+    FILES ${settings_headers}
+    DESTINATION "include/bertini2/settings"
+)
 
 install(
     FILES ${tracking_header_files}
