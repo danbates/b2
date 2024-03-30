@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.22) 
 project(pybertini)
 
+# In order to find conda, run 'conda activate' and then use 'cmake .. -DCMAKE_PREFIX_PATH=$CONDA_PREFIX'
+
 # All source files to be compiled
 # We can either explicitly list all files or use glob better
 #file(GLOB SOURCES src/*.cpp)
@@ -94,15 +96,15 @@ set(PYBERTINI_SOURCES
 
 add_library(_pybertini SHARED ${PYBERTINI_SOURCES} ${PYBERTINI_HEADERS})
 
+target_link_libraries(_pybertini ${GMP_LIBRARIES})
+target_link_libraries(_pybertini ${MPFR_LIBRARIES})
+target_link_libraries(_pybertini ${MPC_LIBRARIES})
+
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${PYTHON_INCLUDE_DIRS})
 include_directories(${Python3_NumPy_INCLUDE_DIRS})
 include_directories(${Bertini2_INCLUDES})
 
-
 target_link_libraries(_pybertini ${Boost_LIBRARIES})
 target_link_libraries(_pybertini Eigen3::Eigen)
-target_link_libraries(_pybertini mpfr)
-target_link_libraries(_pybertini gmp)
-target_link_libraries(_pybertini mpc)
 target_link_libraries(_pybertini ${Bertini2_LIBRARIES})
