@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.22) 
 project(bertini2)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # In order to find conda, run 'conda activate' and then use 'cmake .. -DCMAKE_PREFIX_PATH=$CONDA_PREFIX'
 
 # All source files to be compiled
@@ -8,6 +11,8 @@ project(bertini2)
 #file(GLOB SOURCES src/*.cpp)
 include_directories(include)
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -fPIC")
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include_directories("${CMAKE_CURRENT_BINARY_DIR}/include")
@@ -355,9 +360,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBOOST_PHOENIX_STL_TUPLE_H_")
 target_link_libraries(bertini2 ${GMP_LIBRARIES})
 target_link_libraries(bertini2 ${MPFR_LIBRARIES})
 target_link_libraries(bertini2 ${MPC_LIBRARIES})
-target_link_libraries(bertini2 ${Boost_LIBRARIES})
 target_link_libraries(bertini2 Eigen3::Eigen)
 target_link_libraries(bertini2_exe ${Boost_LIBRARIES} bertini2)
+target_link_libraries(bertini2 ${Boost_LIBRARIES})
 
 
 # Compile flags	include/bertini2/common/config.hpp \

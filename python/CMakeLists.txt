@@ -21,10 +21,26 @@ find_package(MPC REQUIRED)
 include_directories(${GMP_INCLUDES})
 include_directories(${MPC_INCLUDES})
 
+find_package(eigenpy 3.3 REQUIRED CONFIG)
+
+
+# Find python and Boost - both are required dependencies
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development.Module NumPy)
+
+# Without this, any build libraries automatically have names "lib{x}.so"
+set(CMAKE_SHARED_MODULE_PREFIX "")
+
+
+find_package(Eigen3 3.3 REQUIRED NO_MODULE)
+
+# Eigenpy finds Boostpython, having our call to find boost libraries before the eigenpy call erases our call, so our call for boost libraries is after this line
+
+find_package(bertini2 REQUIRED)
 
 find_package(Boost 1.82 REQUIRED
                 COMPONENTS 
                     serialization
+                    wserialization
                     unit_test_framework
                     filesystem
                     system
@@ -34,19 +50,8 @@ find_package(Boost 1.82 REQUIRED
                     log
                     thread
                     log_setup
+                    python311
 )
-
-# Find python and Boost - both are required dependencies
-find_package(Python3 REQUIRED COMPONENTS Interpreter Development.Module NumPy)
-#find_package(PythonLibs 3.11 REQUIRED)
-find_package(Boost COMPONENTS python311 REQUIRED)
-
-# Without this, any build libraries automatically have names "lib{x}.so"
-set(CMAKE_SHARED_MODULE_PREFIX "")
-
-find_package(Eigen3 3.3 REQUIRED NO_MODULE)
-find_package(eigenpy 3.3 REQUIRED CONFIG)
-find_package(bertini2 REQUIRED)
 
 set(PYBERTINI_HEADERS
     include/bertini_python.hpp
@@ -93,8 +98,17 @@ set(PYBERTINI_SOURCES
     src/bertini_python.cpp
 )
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBOOST_PHOENIX_STL_TUPLE_H_")
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 add_library(_pybertini SHARED ${PYBERTINI_SOURCES} ${PYBERTINI_HEADERS})
+set_property(TARGET _pybertini PROPERTY INTERFACE_POSITION_INDEPENDENT_CODE ON)
+
+set_target_properties(_pybertini PROPERTIES PREFIX "")
+install(TARGETS _pybertini
+            DESTINATION "${PYTHON_INSTALL_PATH}")
 
 target_link_libraries(_pybertini ${GMP_LIBRARIES})
 target_link_libraries(_pybertini ${MPFR_LIBRARIES})
@@ -105,6 +119,11 @@ include_directories(${PYTHON_INCLUDE_DIRS})
 include_directories(${Python3_NumPy_INCLUDE_DIRS})
 include_directories(${Bertini2_INCLUDES})
 
-target_link_libraries(_pybertini ${Boost_LIBRARIES})
+link_directories("/home/vscode/anaconda3/lib/")
 target_link_libraries(_pybertini Eigen3::Eigen)
+target_link_libraries(_pybertini /home/vscode/anaconda3/lib/libeigenpy.so)
 target_link_libraries(_pybertini ${Bertini2_LIBRARIES})
+target_link_libraries(_pybertini ${Boost_LIBRARIES})
+
+include(CMakePrintHelpers)
+cmake_print_variables(Boost_LIBRARIES)
