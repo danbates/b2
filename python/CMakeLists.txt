@@ -108,7 +108,7 @@ set_property(TARGET _pybertini PROPERTY INTERFACE_POSITION_INDEPENDENT_CODE ON)
 
 set_target_properties(_pybertini PROPERTIES PREFIX "")
 install(TARGETS _pybertini
-            DESTINATION "${PYTHON_INSTALL_PATH}")
+            DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/pybertini/")
 
 target_link_libraries(_pybertini ${GMP_LIBRARIES})
 target_link_libraries(_pybertini ${MPFR_LIBRARIES})
@@ -121,9 +121,10 @@ include_directories(${Bertini2_INCLUDES})
 
 link_directories("/home/vscode/anaconda3/lib/")
 target_link_libraries(_pybertini Eigen3::Eigen)
+
+#Hardcoded path needs to be replaced
 target_link_libraries(_pybertini /home/vscode/anaconda3/lib/libeigenpy.so)
 target_link_libraries(_pybertini ${Bertini2_LIBRARIES})
 target_link_libraries(_pybertini ${Boost_LIBRARIES})
 
 include(CMakePrintHelpers)
-cmake_print_variables(Boost_LIBRARIES)

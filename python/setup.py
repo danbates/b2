@@ -17,7 +17,10 @@ setup(name='pybertini',
       license='GPL3 with permitted additional clauses',
       packages=find_packages(exclude=EXCLUDE_FROM_PACKAGES),
       package_dir = {'pybertini': SRC_PATH},
-      zip_safe=False)
+      include_package_data=True,
+      package_data= {"":["_pybertini.so"]},
+      zip_safe=False
+      )
 
 # dependencies to add
 # sphinxcontrib-bibtex
