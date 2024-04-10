@@ -36,11 +36,11 @@ container types, coming from C++
 
 """
 
-import _pybertini.container
+import pybertini._pybertini.container
 
-from _pybertini.container import *
+from pybertini._pybertini.container import *
 
-__all__ = dir(_pybertini.container)
+__all__ = dir(pybertini._pybertini.container)
 
 
 vector_types = (ListOfVectorComplexVariablePrecision, ListOfVectorComplexDoublePrecision)

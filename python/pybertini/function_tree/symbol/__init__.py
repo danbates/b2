@@ -28,10 +28,10 @@
 
 
 
-import _pybertini
-import _pybertini.function_tree.symbol
+import pybertini._pybertini
+import pybertini._pybertini.function_tree.symbol
 
-from _pybertini.function_tree.symbol import *
+from pybertini._pybertini.function_tree.symbol import *
 
-__all__ = dir(_pybertini.function_tree.symbol)
+__all__ = dir(pybertini._pybertini.function_tree.symbol)
 

@@ -11,7 +11,7 @@ sys = pybertini.System()
 sys.add_function(f)
 sys.add_function(g)
 
-grp = _pybertini.VariableGroup()
+grp = pybertini._pybertini.VariableGroup()
 grp.append(x)
 grp.append(y)
 sys.add_variable_group(grp)

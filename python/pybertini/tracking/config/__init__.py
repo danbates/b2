@@ -32,8 +32,8 @@
 """
 Tracking-specific configs
 """
-import _pybertini.tracking.config
-from _pybertini.tracking.config import *
+import pybertini._pybertini.tracking.config
+from pybertini._pybertini.tracking.config import *
 
-__all__ = dir(_pybertini.tracking.config)
+__all__ = dir(pybertini._pybertini.tracking.config)
 

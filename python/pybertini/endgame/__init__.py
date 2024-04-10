@@ -68,9 +68,9 @@ Fixed Multiple Precision  Endgames
 
 """
 
-import _pybertini.endgame
+import pybertini._pybertini.endgame
 
-from _pybertini.endgame import *
+from pybertini._pybertini.endgame import *
 
 __all__ = ['AMPCauchyEG',
  'AMPPSEG',

@@ -28,16 +28,16 @@
 
 
 
-import _pybertini
-import _pybertini.function_tree
+import pybertini._pybertini
+import pybertini._pybertini.function_tree
 
-# from _pybertini import function_tree
-from _pybertini.container import VariableGroup
+# from pybertini._pybertini import function_tree
+from pybertini._pybertini.container import VariableGroup
 
-from _pybertini.function_tree import *
+from pybertini._pybertini.function_tree import *
 
 
 VariableGroup.__str__ = lambda vg: '[{}]'.format( ','.join([str(v) for v in vg]) )
 
-__all__ = dir(_pybertini.function_tree)
+__all__ = dir(pybertini._pybertini.function_tree)
 

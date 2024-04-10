@@ -36,9 +36,9 @@ Multiprecision types
 
 """
 
-import _pybertini.multiprec
+import pybertini._pybertini.multiprec
 
-from _pybertini.multiprec import *
+from pybertini._pybertini.multiprec import *
 
 
-__all__ = dir(_pybertini.multiprec)
+__all__ = dir(pybertini._pybertini.multiprec)

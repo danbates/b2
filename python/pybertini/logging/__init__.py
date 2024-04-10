@@ -35,8 +35,8 @@ Parsing functions, taking strings and producing various other things
 """
 
 
-import _pybertini.logging
-from _pybertini.logging import *
+import pybertini._pybertini.logging
+from pybertini._pybertini.logging import *
 
-__all__ = dir(_pybertini.logging)
+__all__ = dir(pybertini._pybertini.logging)
 
