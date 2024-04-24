@@ -15,7 +15,7 @@ stamp-h1
 ltmain.sh
 
 config.h
-config.h.in
+#config.h.in
 config.status
 
 libtool
