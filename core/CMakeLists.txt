@@ -4,11 +4,12 @@ project(bertini2)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# In order to find conda, run 'conda activate' and then use 'cmake .. -DCMAKE_PREFIX_PATH=$CONDA_PREFIX'
+# In order to find conda, run 'conda activate' and then use 'cmake .. -DCMAKE_PREFIX_PATH=$CONDA_PREFIX' when cmaking
 
 # All source files to be compiled
-# We can either explicitly list all files or use glob better
+# We can either explicitly list all files or use glob, we chose to explicitly list files and not to glob
 #file(GLOB SOURCES src/*.cpp)
+
 include_directories(include)
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 
@@ -40,6 +41,7 @@ find_package(Boost 1.82 REQUIRED
 
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 
+# Once we get rid of autotools, we can delete this line
 configure_file(config.h.in include/bertini2/config.h)
 
 # This was from a makemodule.am, take the lists and define them in seperate blocks with the variables they already have, then add the variable name to library_headrs
@@ -361,12 +363,9 @@ target_link_libraries(bertini2 ${GMP_LIBRARIES})
 target_link_libraries(bertini2 ${MPFR_LIBRARIES})
 target_link_libraries(bertini2 ${MPC_LIBRARIES})
 target_link_libraries(bertini2 Eigen3::Eigen)
-target_link_libraries(bertini2_exe ${Boost_LIBRARIES} bertini2)
 target_link_libraries(bertini2 ${Boost_LIBRARIES})
 
-
-# Compile flags	include/bertini2/common/config.hpp \
-#	include/bertini2/common/stream_enum.hpp
+target_link_libraries(bertini2_exe ${Boost_LIBRARIES} bertini2)
 
 target_compile_options(bertini2 PRIVATE -Wall -Wextra)
 
@@ -552,6 +551,7 @@ set(B2_CLASS_TEST_SOURCES
 add_executable(b2_class_test ${B2_CLASS_TEST_SOURCES})
 target_include_directories(b2_class_test PUBLIC
                                          ${CMAKE_CURRENT_SOURCE_DIR}/test/classes)
+
 target_link_libraries(b2_class_test ${Boost_LIBRARIES} bertini2)
 add_test(NAME b2_class_test COMMAND ${CMAKE_BINARY_DIR}/bin/b2_class_test)
 
@@ -562,7 +562,8 @@ set(B2_BLACKBOX_TEST
     test/blackbox/parsing.cpp
     test/blackbox/user_homotopy.cpp
 )
-add_executable(blackbox_test ${B2_BLACKBOX_TEST}) #Find these names in the Makemodules for the folder
+
+add_executable(blackbox_test ${B2_BLACKBOX_TEST})
 target_link_libraries(blackbox_test ${Boost_LIBRARIES} bertini2)
 add_test(NAME blackbox_test COMMAND ${CMAKE_BINARY_DIR}/bin/blackbox_test)
 
@@ -661,9 +662,4 @@ set(B2_TRACKING_BASICS_TEST
     test/tracking_basics/path_observers.cpp
 )
 
-
 enable_testing()
-
-# This is a template for all of the set variables in the beggining of this file, just headers, not sources
-
-# To test, the /usr/local/include/bertini2 strcuture should mirror the structure of this folder (core/include)

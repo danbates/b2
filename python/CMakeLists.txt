@@ -1,11 +1,12 @@
 cmake_minimum_required(VERSION 3.22) 
 project(pybertini)
 
-# In order to find conda, run 'conda activate' and then use 'cmake .. -DCMAKE_PREFIX_PATH=$CONDA_PREFIX'
+# In order to find conda, run 'conda activate' and then use 'cmake .. -DCMAKE_PREFIX_PATH=$CONDA_PREFIX' when cmaking
 
 # All source files to be compiled
-# We can either explicitly list all files or use glob better
+# We can either explicitly list all files or use glob, we chose to explicitly list files and not to glob
 #file(GLOB SOURCES src/*.cpp)
+
 include_directories(include)
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 
@@ -50,7 +51,7 @@ find_package(Boost 1.82 REQUIRED
                     log
                     thread
                     log_setup
-                    python311
+                    python311 # This finds a minimum version
 )
 
 set(PYBERTINI_HEADERS
@@ -119,12 +120,9 @@ include_directories(${PYTHON_INCLUDE_DIRS})
 include_directories(${Python3_NumPy_INCLUDE_DIRS})
 include_directories(${Bertini2_INCLUDES})
 
-link_directories("/home/vscode/anaconda3/lib/")
 target_link_libraries(_pybertini Eigen3::Eigen)
-
-#Hardcoded path needs to be replaced
-target_link_libraries(_pybertini /home/vscode/anaconda3/lib/libeigenpy.so)
+target_link_libraries(_pybertini eigenpy::eigenpy)
 target_link_libraries(_pybertini ${Bertini2_LIBRARIES})
 target_link_libraries(_pybertini ${Boost_LIBRARIES})
 
-include(CMakePrintHelpers)
+#include(CMakePrintHelpers)
