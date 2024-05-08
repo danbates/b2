@@ -54,7 +54,7 @@ bertini_python = \
 	$(bertini_python_source_files)
 
 
-pyexec_LTLIBRARIES += pybertini._pybertini.la 
+pyexec_LTLIBRARIES += _pybertini.la 
 # we are building a PYTHON library.  
 # so this is explicitly NOT lib_LTLIBRARIES
 

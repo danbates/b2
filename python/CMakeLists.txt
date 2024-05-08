@@ -31,6 +31,9 @@ find_package(Python3 REQUIRED COMPONENTS Interpreter Development.Module NumPy)
 # Without this, any build libraries automatically have names "lib{x}.so"
 set(CMAKE_SHARED_MODULE_PREFIX "")
 
+# this should be OS-specific, as .so is only for macos and unix.
+set(CMAKE_SHARED_LIBRARY_SUFFIX ".so")
+
 
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 
