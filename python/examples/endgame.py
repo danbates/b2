@@ -113,6 +113,10 @@ final_homogenized_solutions = [np.empty(dtype=mpfr_complex, shape=(3,)) for i in
 for i in range(n):
     p = bdry_points[i]
 
+    print("RIGHT HERE V")
+
+    print(p[0].precision())
+
 
     print('moving to precision {} to match precision of boundary point'.format(pb.multiprec.precision(p)))
 
@@ -122,10 +126,14 @@ for i in range(n):
 
     print(p.flags)
 
+    t = mpfr_complex(0)
+    t = t_endgame_boundary
+    t.precision(p[0].precision())
+
     q = np.zeros(dtype=mpfr_complex, shape=(3));
     print(p.flags)
-    track_success_code = my_endgame.run(mpfr_complex(t_endgame_boundary),q);
-    print('qwfp')
+    track_success_code = my_endgame.run(t,p);
+    print(track_success_code)
     
 
     final_homogenized_solutions[i] = my_endgame.final_approximation();
