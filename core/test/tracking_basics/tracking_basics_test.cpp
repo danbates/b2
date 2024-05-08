@@ -31,7 +31,7 @@
 #define BOOST_TEST_MODULE "Bertini 2 Tracking Basics Testing"
 #include <boost/test/unit_test.hpp>
 
-#include "mpfr_extensions.hpp"
+#include "bertini2/mpfr_extensions.hpp"
 
 #define BERTINI_TEST_MODULE "tracking_basics"
 #include "test/utility/enable_logging.hpp"

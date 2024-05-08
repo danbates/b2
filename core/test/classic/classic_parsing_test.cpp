@@ -25,7 +25,7 @@
 //  parsing.cpp
 
 
-#include "bertini.hpp"
+#include "bertini2/bertini.hpp"
 #include <bertini2/io/parsing/classic_utilities.hpp>
 #include <string>
 #include <boost/test/unit_test.hpp>

@@ -28,9 +28,9 @@
 #include <boost/test/unit_test.hpp>
 
 #include <boost/multiprecision/mpfr.hpp>
-#include "mpfr_complex.hpp"
+#include "bertini2/mpfr_complex.hpp"
 
-#include "trackers/amp_criteria.hpp"
+#include "bertini2/trackers/amp_criteria.hpp"
 
 
 
