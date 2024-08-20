@@ -522,11 +522,6 @@ install(
     DESTINATION "include/bertini2/tracking"
 ) 
 
-install(
-    FILES ${system_source_files}
-    DESTINATION "include/bertini2/system"
-) 
-
 
 
 
