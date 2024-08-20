@@ -32,8 +32,8 @@
 """
 Observers built to watch an adaptive precision tracker
 """
-import _pybertini.tracking.observers.amp
-from _pybertini.tracking.observers.amp import *
+import pybertini._pybertini.tracking.observers.amp
+from pybertini._pybertini.tracking.observers.amp import *
 
-__all__ = dir(_pybertini.tracking.observers.amp)
+__all__ = dir(pybertini._pybertini.tracking.observers.amp)
 

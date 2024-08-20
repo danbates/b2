@@ -34,8 +34,8 @@
 Start systems
 
 """
-import _pybertini.system.start_system
-from _pybertini.system.start_system import *
+import pybertini._pybertini.system.start_system
+from pybertini._pybertini.system.start_system import *
 
-__all__ = dir(_pybertini.system.start_system)
+__all__ = dir(pybertini._pybertini.system.start_system)
 

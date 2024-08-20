@@ -29,9 +29,9 @@
 #include <boost/test/unit_test.hpp>
 
 #include <boost/multiprecision/mpfr.hpp>
-#include "mpfr_complex.hpp"
+#include "bertini2/mpfr_complex.hpp"
 
-#include "trackers/ode_predictors.hpp"
+#include "bertini2/trackers/ode_predictors.hpp"
 
 
 
@@ -51,7 +51,7 @@ using Float = bertini::node::Float;
 using ExplicitRKPredictor = bertini::tracking::predict::ExplicitRKPredictor;
 
 using Var = std::shared_ptr<Variable>;
-using bertini::Variable::Make;
+
 using VariableGroup = bertini::VariableGroup;
 
 

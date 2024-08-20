@@ -28,10 +28,10 @@
 
 
 
-import _pybertini
-import _pybertini.function_tree.root
+import pybertini._pybertini
+import pybertini._pybertini.function_tree.root
 
-from _pybertini.function_tree.root import *
+from pybertini._pybertini.function_tree.root import *
 
-__all__ = dir(_pybertini.function_tree.root)
+__all__ = dir(pybertini._pybertini.function_tree.root)
 

@@ -27,8 +27,8 @@
 #include <boost/test/unit_test.hpp>
 
 #include <boost/multiprecision/mpfr.hpp>
-#include "mpfr_complex.hpp"
-#include "trackers/newton_corrector.hpp"
+#include "bertini2/mpfr_complex.hpp"
+#include "bertini2/trackers/newton_corrector.hpp"
 
 
 
@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_SUITE(newton_correct_tracking_basics)
 
 using System = bertini::System;
 using Variable = bertini::node::Variable;
-using bertini::Variable::Make;
+
 using Var = std::shared_ptr<Variable>;
 
 using VariableGroup = bertini::VariableGroup;

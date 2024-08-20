@@ -35,10 +35,10 @@ nag_algorithms
 """
 
 
-import _pybertini.nag_algorithms
-from _pybertini.nag_algorithms import *
+import pybertini._pybertini.nag_algorithms
+from pybertini._pybertini.nag_algorithms import *
 
-__all__ = dir(_pybertini.nag_algorithms)
+__all__ = dir(pybertini._pybertini.nag_algorithms)
 
 
-# DoublePrecisionTotalDegree = _pybertini.nag_algorithms.ZeroDimCauchyDoublePrecisionTotalDegree
+# DoublePrecisionTotalDegree = pybertini._pybertini.nag_algorithms.ZeroDimCauchyDoublePrecisionTotalDegree

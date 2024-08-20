@@ -1,0 +1,7 @@
+{
+    // The following hides files created by and for the Sublime IDE
+    "files.exclude": {
+        "*.b2.sublime-project": true,
+        "**/*.sublime-project": true
+    }
+}

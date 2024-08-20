@@ -34,8 +34,8 @@ Configs for endgames
 
 """
 
-import _pybertini.endgame.config
+import pybertini._pybertini.endgame.config
 
-from _pybertini.endgame.config import *
+from pybertini._pybertini.endgame.config import *
 
-__all__ = dir(_pybertini.endgame.config)
+__all__ = dir(pybertini._pybertini.endgame.config)

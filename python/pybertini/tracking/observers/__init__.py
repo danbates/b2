@@ -32,8 +32,8 @@
 """
 Observers built to watch a tracker
 """
-import _pybertini.tracking.observers
-from _pybertini.tracking.observers import *
+import pybertini._pybertini.tracking.observers
+from pybertini._pybertini.tracking.observers import *
 
-__all__ = dir(_pybertini.tracking.observers)
+__all__ = dir(pybertini._pybertini.tracking.observers)
 

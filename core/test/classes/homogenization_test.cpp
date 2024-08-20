@@ -37,16 +37,18 @@
 
 BOOST_AUTO_TEST_SUITE(homogenization)
 
+using Variable = bertini::node::Variable;
+using Float = bertini::node::Float;
 using mpfr_float = bertini::mpfr_float;
 using Var = std::shared_ptr<bertini::node::Variable>;
-using Float = std::shared_ptr<bertini::node::Float>;
+
+using Flt = std::shared_ptr<bertini::node::Float>;
 using VariableGroup = bertini::VariableGroup;
 using dbl = bertini::dbl;
 using mpfr = bertini::mpfr_complex;
 
 
-using bertini::Variable::Make;
-using bertini::MakeFloat;
+
 
 
 BOOST_AUTO_TEST_CASE(no_homogenization_needed_x)
@@ -419,7 +421,7 @@ BOOST_AUTO_TEST_CASE(nothomogeneous_sqrt_x)
 
 BOOST_AUTO_TEST_CASE(is_homogeneous_sin_0)
 {
-	Float n = MakeFloat("1");
+	Flt n = Float::Make("1");
 
 	auto f1 = sin(n);
 	
@@ -430,7 +432,7 @@ BOOST_AUTO_TEST_CASE(is_homogeneous_sin_0)
 
 BOOST_AUTO_TEST_CASE(is_homogeneous_cos_1)
 {
-	Float n = MakeFloat("1");
+	Flt n = Float::Make("1");
 
 	auto f1 = cos(n);
 	
@@ -441,7 +443,7 @@ BOOST_AUTO_TEST_CASE(is_homogeneous_cos_1)
 
 BOOST_AUTO_TEST_CASE(is_homogeneous_sin_1_plus_1)
 {
-	Float n = MakeFloat("1");
+	Flt n = Float::Make("1");
 
 	auto f1 = sin(n + n);
 	
@@ -579,7 +581,7 @@ BOOST_AUTO_TEST_CASE(linprod_hom_eval)
 		}
 	}
 	
-	std::shared_ptr<bertini::node::Node>linprod1 = bertini::LinearProduct::Make(v0, coeff_mpfr);
+	std::shared_ptr<bertini::node::Node>linprod1 = bertini::node::LinearProduct::Make(v0, coeff_mpfr);
 	
 	coeff_dbl = Mat<dbl>(1,2);
 	coeff_mpfr = Mat<mpfr>(1,2);
@@ -593,7 +595,7 @@ BOOST_AUTO_TEST_CASE(linprod_hom_eval)
 		}
 	}
 	
-	std::shared_ptr<bertini::node::Node> linprod2 = bertini::LinearProduct::Make(v1, coeff_mpfr);
+	std::shared_ptr<bertini::node::Node> linprod2 = bertini::node::LinearProduct::Make(v1, coeff_mpfr);
 	
 	std::shared_ptr<bertini::node::Node> linprod_node = (mpfr(1,1)*x + mpfr(1,2)*z + mpfr(1,3)) * (mpfr(2,1)*x + mpfr(2,2)*z+ mpfr(2,3))* (mpfr(3,3)*y + mpfr(3,4));
 	std::shared_ptr<bertini::node::Node> linprod = linprod1*linprod2;
@@ -678,7 +680,7 @@ BOOST_AUTO_TEST_CASE(linprod_hom_eval_homvars)
 		}
 	}
 	
-	std::shared_ptr<bertini::node::Node>linprod1 = bertini::LinearProduct::Make(v0, coeff_mpfr, true);
+	std::shared_ptr<bertini::node::Node>linprod1 = bertini::node::LinearProduct::Make(v0, coeff_mpfr, true);
 	
 	coeff_dbl = Mat<dbl>(1,2);
 	coeff_mpfr = Mat<mpfr>(1,2);
@@ -692,7 +694,7 @@ BOOST_AUTO_TEST_CASE(linprod_hom_eval_homvars)
 		}
 	}
 	
-	std::shared_ptr<bertini::node::Node> linprod2 = bertini::LinearProduct::Make(v1, coeff_mpfr, true);
+	std::shared_ptr<bertini::node::Node> linprod2 = bertini::node::LinearProduct::Make(v1, coeff_mpfr, true);
 	
 	std::shared_ptr<bertini::node::Node> linprod_node = (mpfr(1,1)*x + mpfr(1,2)*z) * (mpfr(2,1)*x + mpfr(2,2)*z)* (mpfr(3,3)*y);
 	std::shared_ptr<bertini::node::Node> linprod = linprod1*linprod2;
@@ -782,7 +784,7 @@ BOOST_AUTO_TEST_CASE(linprod_hom_diff_eval)
         }
     }
     
-    std::shared_ptr<bertini::node::Node> linprod1 = bertini::LinearProduct::Make(v0, coeff_mpfr);
+    std::shared_ptr<bertini::node::Node> linprod1 = bertini::node::LinearProduct::Make(v0, coeff_mpfr);
     
     num_factors = 1;
     num_variables = v1.size();
@@ -799,7 +801,7 @@ BOOST_AUTO_TEST_CASE(linprod_hom_diff_eval)
     }
     
     
-    std::shared_ptr<bertini::node::Node> linprod2 = bertini::LinearProduct::Make(v1, coeff_mpfr);
+    std::shared_ptr<bertini::node::Node> linprod2 = bertini::node::LinearProduct::Make(v1, coeff_mpfr);
     
     std::shared_ptr<bertini::node::Node> linprod1_node = (mpfr(1,1)*x + mpfr(1,2)*z + mpfr(1,3)*y+ mpfr(1,4)) * (mpfr(2,1)*x + mpfr(2,2)*z + mpfr(2,3)*y+ mpfr(2,4))*(mpfr(3,1)*x + mpfr(3,2)*z + mpfr(3,3)*y+ mpfr(3,4));
     std::shared_ptr<bertini::node::Node> linprod2_node = (mpfr(3,3)*w + mpfr(3,4));
@@ -843,8 +845,8 @@ BOOST_AUTO_TEST_CASE(linprod_hom_diff_eval)
     linprod->Homogenize(v1,h1);
     
     
-    auto J_node = bertini::Jacobian::Make(linprod_node->Differentiate());
-    auto J = bertini::Jacobian::Make(linprod->Differentiate());
+    auto J_node = bertini::node::Jacobian::Make(linprod_node->Differentiate());
+    auto J = bertini::node::Jacobian::Make(linprod->Differentiate());
     
     
     dbl evalx_d = J->EvalJ<dbl>(x);

@@ -41,6 +41,7 @@
 #include "bertini2/pool/system.hpp"
 #include "test/utility/enable_logging.hpp"
 
+using Variable = bertini::node::Variable;
 
 BOOST_AUTO_TEST_SUITE(system_pool)
 
@@ -76,7 +77,7 @@ BOOST_AUTO_TEST_CASE(make_nonpointer_system_and_add_to_pool)
 BOOST_AUTO_TEST_CASE(make_new_sys_from_pool)
 {
 	SystemPool sp;
-	std::shared_ptr<System> sys = sp.NewObj();
+	std::shared_ptr<System> sys = sp.Make();
 
 	auto x = Variable::Make("x");
 	auto y = Variable::Make("y");

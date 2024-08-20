@@ -55,8 +55,7 @@ using Variable = bertini::node::Variable;
 using Node = bertini::node::Node;
 using Function = bertini::node::Function;
 using Jacobian = bertini::node::Jacobian;
-using bertini::Variable::Make;
-using bertini::Jacobian::Make;
+
 using dbl = bertini::dbl;
 using mpfr = bertini::mpfr_complex;
 using mpfr_float = bertini::mpfr_float;
@@ -1242,7 +1241,7 @@ BOOST_AUTO_TEST_CASE(linprod_diff_eval)
 	
 	
 	std::shared_ptr<bertini::node::Node> linprod_node = (mpfr(1,1)*x + mpfr(1,2)*z + mpfr(1,3)*y+ mpfr(1,4)) * (mpfr(2,1)*x + mpfr(2,2)*z + mpfr(2,3)*y+ mpfr(2,4))*(mpfr(3,1)*x + mpfr(3,2)*z + mpfr(3,3)*y+ mpfr(3,4));
-	std::shared_ptr<bertini::node::Node> linprod = bertini::LinearProduct::Make(v0, coeff_mpfr);
+	std::shared_ptr<bertini::node::Node> linprod = bertini::node::LinearProduct::Make(v0, coeff_mpfr);
 	
 	dbl xval_d = dbl(.5,1);
 	dbl yval_d = dbl(.6,1);
@@ -1262,8 +1261,8 @@ BOOST_AUTO_TEST_CASE(linprod_diff_eval)
 	v0[1]->set_current_value(zval_mp);
 	v1[0]->set_current_value(yval_mp);
 	
-    auto J_node = bertini::Jacobian::Make(linprod_node->Differentiate());
-    auto J = bertini::Jacobian::Make(linprod->Differentiate());
+    auto J_node = bertini::node::Jacobian::Make(linprod_node->Differentiate());
+    auto J = bertini::node::Jacobian::Make(linprod->Differentiate());
 	
     dbl evalx_d = J->EvalJ<dbl>(x);
     dbl exactx_d = J_node->EvalJ<dbl>(x);

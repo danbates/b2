@@ -24,7 +24,7 @@
 // Jeb Collins, West Texas A&M
 
 
-#include "function_tree.hpp"
+#include "bertini2/function_tree.hpp"
 
 BOOST_CLASS_EXPORT_IMPLEMENT(bertini::node::Variable)
 BOOST_CLASS_EXPORT_IMPLEMENT(bertini::node::Differential)

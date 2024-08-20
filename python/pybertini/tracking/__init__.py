@@ -33,12 +33,12 @@
 """
 Tracking-specific things -- trackers, configs
 """
-import _pybertini.tracking
-from _pybertini.tracking import *
+import pybertini._pybertini.tracking
+from pybertini._pybertini.tracking import *
 
-__all__ = dir(_pybertini.tracking)
+__all__ = dir(pybertini._pybertini.tracking)
 
 
-AMPTracker.observers = _pybertini.tracking.observers.amp
-DoublePrecisionTracker.observers = _pybertini.tracking.observers.double
-MultiplePrecisionTracker.observers = _pybertini.tracking.observers.multiple
+AMPTracker.observers = pybertini._pybertini.tracking.observers.amp
+DoublePrecisionTracker.observers = pybertini._pybertini.tracking.observers.double
+MultiplePrecisionTracker.observers = pybertini._pybertini.tracking.observers.multiple

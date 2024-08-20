@@ -27,9 +27,9 @@
 #include <boost/test/unit_test.hpp>
 
 #include <boost/multiprecision/mpfr.hpp>
-#include "mpfr_complex.hpp"
+#include "bertini2/mpfr_complex.hpp"
 
-#include "trackers/ode_predictors.hpp"
+#include "bertini2/trackers/ode_predictors.hpp"
 
 
 
@@ -48,8 +48,7 @@ using Variable = bertini::node::Variable;
 using Float = bertini::node::Float;
 using ExplicitRKPredictor = bertini::tracking::predict::ExplicitRKPredictor;
 
-using bertini::Variable::Make;
-using bertini::MakeFloat;
+
 using Var = std::shared_ptr<Variable>;
 
 using VariableGroup = bertini::VariableGroup;
@@ -243,7 +242,7 @@ BOOST_AUTO_TEST_CASE(circle_line_heun_double)
 		
 		bertini::System sys;
 		Var x = Variable::Make("x"), y = Variable::Make("y"), t = Variable::Make("t");
-		std::shared_ptr<Float> half = MakeFloat("0.5");
+		std::shared_ptr<Float> half = Float::Make("0.5");
 		
 		VariableGroup vars{x,y};
 		
@@ -323,7 +322,7 @@ BOOST_AUTO_TEST_CASE(circle_line_heun_double)
 		
 		bertini::System sys;
 		Var x = Variable::Make("x"), y = Variable::Make("y"), t = Variable::Make("t");
-		std::shared_ptr<Float> half = MakeFloat("0.5");
+		std::shared_ptr<Float> half = Float::Make("0.5");
 		
 		VariableGroup vars{x,y};
 		

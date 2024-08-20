@@ -58,8 +58,7 @@ template<typename NumType> using Mat = bertini::Mat<NumType>;
 using Variable = bertini::node::Variable;
 using Node = bertini::node::Node;
 using Float = bertini::node::Float;
-using bertini::Variable::Make;
-using bertini::MakeFloat;
+
 
 using dbl = bertini::dbl;
 using mpfr = bertini::mpfr_complex;
@@ -96,7 +95,7 @@ BOOST_AUTO_TEST_CASE(serialize_variable)
 
 BOOST_AUTO_TEST_CASE(serialize_float)
 {
-	std::shared_ptr<Float> two_point_oh_four = MakeFloat("2.04");
+	std::shared_ptr<Float> two_point_oh_four = Float::Make("2.04");
 
 	{
 		std::ofstream fout("serialization_test_node");

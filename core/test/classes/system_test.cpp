@@ -41,7 +41,7 @@
 
 #include "externs.hpp"
 
-
+using Variable = bertini::node::Variable;
 
 
 BOOST_AUTO_TEST_SUITE(system_class)
