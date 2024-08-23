@@ -439,6 +439,7 @@ BOOST_AUTO_TEST_CASE(arithmetic_precision_fresh_variable_all_threads_preserve_ta
 	BOOST_CHECK_EQUAL(y.precision(), 60);
 
 
+	mpfr_float w(0);
 
 	mpfr_float::default_precision(30);
 	scoped_mpfr_precision_options_all_threads scoped_opts(boost::multiprecision::variable_precision_options::preserve_target_precision);
@@ -447,7 +448,11 @@ BOOST_AUTO_TEST_CASE(arithmetic_precision_fresh_variable_all_threads_preserve_ta
 
 	BOOST_CHECK_EQUAL(x.precision(), 50);
 	BOOST_CHECK_EQUAL(y.precision(), 60);
-	BOOST_CHECK_EQUAL(z.precision(), 60);
+	BOOST_CHECK_EQUAL(z.precision(), 30);
+
+	w = x*y;
+
+	BOOST_CHECK_EQUAL(w.precision(), 60);
 	
 }
 
