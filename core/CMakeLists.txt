@@ -41,9 +41,6 @@ find_package(Boost 1.82 REQUIRED
 
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 
-# Once we get rid of autotools, we can delete this line
-configure_file(config.h.in include/bertini2/config.h)
-
 # This was from a makemodule.am, take the lists and define them in seperate blocks with the variables they already have, then add the variable name to library_headrs
 set(endgames_headers
 	include/bertini2/endgames/amp_endgame.hpp
@@ -71,8 +68,8 @@ set (basics_rootinclude_headers
     include/bertini2/eigen_serialization_addon.hpp
     include/bertini2/logging.hpp
     include/bertini2/endgames.hpp
-    "${CMAKE_CURRENT_BINARY_DIR}/include/bertini2/config.h"
     include/bertini2/bertini.hpp
+    include/bertini2/version.hpp
 )
 
 set (common_headers
