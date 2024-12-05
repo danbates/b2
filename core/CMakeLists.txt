@@ -41,9 +41,6 @@ find_package(Boost 1.82 REQUIRED
 
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 
-# Once we get rid of autotools, we can delete this line
-configure_file(config.h.in include/bertini2/config.h)
-
 # This was from a makemodule.am, take the lists and define them in seperate blocks with the variables they already have, then add the variable name to library_headrs
 set(endgames_headers
 	include/bertini2/endgames/amp_endgame.hpp
@@ -71,8 +68,8 @@ set (basics_rootinclude_headers
     include/bertini2/eigen_serialization_addon.hpp
     include/bertini2/logging.hpp
     include/bertini2/endgames.hpp
-    "${CMAKE_CURRENT_BINARY_DIR}/include/bertini2/config.h"
     include/bertini2/bertini.hpp
+    include/bertini2/version.hpp
 )
 
 set (common_headers
@@ -522,11 +519,6 @@ install(
     DESTINATION "include/bertini2/tracking"
 ) 
 
-install(
-    FILES ${system_source_files}
-    DESTINATION "include/bertini2/system"
-) 
-
 
 
 
@@ -561,7 +553,7 @@ target_include_directories(test_classes PUBLIC
                                          ${CMAKE_CURRENT_SOURCE_DIR}/test/classes)
 
 target_link_libraries(test_classes ${Boost_LIBRARIES} bertini2)
-add_test(NAME test_classes COMMAND ${CMAKE_BINARY_DIR}/bin/test_classes)
+add_test(NAME test_classes COMMAND ${CMAKE_BINARY_DIR}/test_classes)
 
 
 set(B2_BLACKBOX_TEST
@@ -573,7 +565,7 @@ set(B2_BLACKBOX_TEST
 
 add_executable(test_blackbox ${B2_BLACKBOX_TEST})
 target_link_libraries(test_blackbox ${Boost_LIBRARIES} bertini2)
-add_test(NAME test_blackbox COMMAND ${CMAKE_BINARY_DIR}/bin/test_blackbox)
+add_test(NAME test_blackbox COMMAND ${CMAKE_BINARY_DIR}/test_blackbox)
 
 
 set(B2_CLASSIC_TEST
@@ -583,7 +575,7 @@ set(B2_CLASSIC_TEST
 
 add_executable(test_classic ${B2_CLASSIC_TEST})
 target_link_libraries(test_classic ${Boost_LIBRARIES} bertini2)
-add_test(NAME test_classic COMMAND ${CMAKE_BINARY_DIR}/bin/test_classic)
+add_test(NAME test_classic COMMAND ${CMAKE_BINARY_DIR}/test_classic)
 
 set(B2_ENDGAMES_TEST
     test/endgames/endgames_test.cpp
@@ -601,7 +593,7 @@ set(B2_ENDGAMES_TEST
 
 add_executable(test_endgames ${B2_ENDGAMES_TEST})
 target_link_libraries(test_endgames ${Boost_LIBRARIES} bertini2)
-add_test(NAME test_endgames COMMAND ${CMAKE_BINARY_DIR}/bin/test_endgames)
+add_test(NAME test_endgames COMMAND ${CMAKE_BINARY_DIR}/test_endgames)
 
 set(B2_GENERATING_TEST
     test/generating/mpfr_float.cpp
@@ -613,7 +605,7 @@ set(B2_GENERATING_TEST
 
 add_executable(test_generating ${B2_GENERATING_TEST})
 target_link_libraries(test_generating ${Boost_LIBRARIES} bertini2)
-add_test(NAME test_generating COMMAND ${CMAKE_BINARY_DIR}/bin/test_generating)
+add_test(NAME test_generating COMMAND ${CMAKE_BINARY_DIR}/test_generating)
 
 set(B2_NAG_ALGORITHMS_TEST
     test/nag_algorithms/nag_algorithms_test.cpp
@@ -624,7 +616,7 @@ set(B2_NAG_ALGORITHMS_TEST
 
 add_executable(test_nag_algorithms ${B2_NAG_ALGORITHMS_TEST})
 target_link_libraries(test_nag_algorithms ${Boost_LIBRARIES} bertini2)
-add_test(NAME test_nag_algorithms COMMAND ${CMAKE_BINARY_DIR}/bin/test_nag_algorithms)
+add_test(NAME test_nag_algorithms COMMAND ${CMAKE_BINARY_DIR}/test_nag_algorithms)
 
 set(B2_NAG_DATATYPES_TEST
 	test/nag_datatypes/witness_set.cpp 
@@ -634,7 +626,7 @@ set(B2_NAG_DATATYPES_TEST
 
 add_executable(test_nag_datatypes ${B2_NAG_DATATYPES_TEST})
 target_link_libraries(test_nag_datatypes ${Boost_LIBRARIES} bertini2)
-add_test(NAME test_nag_datatypes COMMAND ${CMAKE_BINARY_DIR}/bin/test_nag_datatypes)
+add_test(NAME test_nag_datatypes COMMAND ${CMAKE_BINARY_DIR}/test_nag_datatypes)
 
 set(B2_POOLS_TEST
     test/pools/pool_test.cpp 
@@ -642,7 +634,7 @@ set(B2_POOLS_TEST
 
 add_executable(test_pool ${B2_NAG_DATATYPES_TEST})
 target_link_libraries(test_pool ${Boost_LIBRARIES} bertini2)
-add_test(NAME test_pool COMMAND ${CMAKE_BINARY_DIR}/bin/test_pool)
+add_test(NAME test_pool COMMAND ${CMAKE_BINARY_DIR}/test_pool)
 
 set(B2_SETTINGS_TEST
     test/settings/settings_test.cpp
@@ -650,7 +642,7 @@ set(B2_SETTINGS_TEST
 
 add_executable(test_settings ${B2_SETTINGS_TEST})
 target_link_libraries(test_settings ${Boost_LIBRARIES} bertini2)
-add_test(NAME test_settings COMMAND ${CMAKE_BINARY_DIR}/bin/test_settings)
+add_test(NAME test_settings COMMAND ${CMAKE_BINARY_DIR}/test_settings)
 
 set(B2_TRACKING_BASICS_TEST
     test/tracking_basics/newton_correct_test.cpp
@@ -666,6 +658,6 @@ set(B2_TRACKING_BASICS_TEST
 
 add_executable(test_tracking_basics ${B2_TRACKING_BASICS_TEST})
 target_link_libraries(test_tracking_basics ${Boost_LIBRARIES} bertini2)
-add_test(NAME test_tracking_basics COMMAND ${CMAKE_BINARY_DIR}/bin/test_tracking_basics)
+add_test(NAME test_tracking_basics COMMAND ${CMAKE_BINARY_DIR}/test_tracking_basics)
 
 enable_testing()

@@ -32,7 +32,7 @@
 #ifndef BERTINI_MPFR_COMPLEX_HPP
 #define BERTINI_MPFR_COMPLEX_HPP
 
-#include "bertini2/config.h"
+
 
 
 

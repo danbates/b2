@@ -30,7 +30,7 @@
 
 #pragma once
 
-#include "bertini2/config.h"
+#include "bertini2/version.hpp"
 
 #include "boost/version.hpp"
 

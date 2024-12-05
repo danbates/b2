@@ -54,7 +54,7 @@ find_package(Boost 1.82 REQUIRED
                     log
                     thread
                     log_setup
-                    python311 # This finds a minimum version
+                    python${Python_VERSION_MAJOR}${Python_VERSION_MINOR} # uses the versions found by find_package(Python3 ...) above.
 )
 
 set(PYBERTINI_HEADERS
