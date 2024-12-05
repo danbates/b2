@@ -711,7 +711,7 @@ namespace bertini{
 					
 					for(int ii = 1; ii < s_; ++ii)
 					{
-						temp.setZero();
+						temp.setZero(); // see https://github.com/bertiniteam/b2/issues/198
 						for(int jj = 0; jj < ii; ++jj)
 							temp += aref(ii,jj)*Kref.col(jj);
 
