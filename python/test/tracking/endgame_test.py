@@ -99,6 +99,7 @@ class EndgameTest(unittest.TestCase):
         final_system = (1-t)*sys + gamma*t*td;
         final_system.add_path_variable(t);
 
+        print('have final system')
         print(final_system)
         prec_config = AMPConfig(final_system);
 
@@ -106,7 +107,7 @@ class EndgameTest(unittest.TestCase):
         newton_pref = NewtonConfig();
 
 
-
+        print('making tracker')
         tracker = AMPTracker(final_system);
 
         tracker.setup(Predictor.RK4, 1e-5, 1e5, stepping_pref, newton_pref);
@@ -119,15 +120,20 @@ class EndgameTest(unittest.TestCase):
         t_endgame_boundary = mpfr_complex("0.1");
         t_final = mpfr_complex(0);
 
-        bdry_points = [np.empty(dtype=mpfr_complex, shape=(3,)) for i in range(n)]
+        bdry_points = []
+        print("tracking to boundary")
         for i in range(n):
             default_precision(self.ambient_precision);
             final_system.precision(self.ambient_precision);
             start_point = td.start_point_mp(i);
 
-            bdry_pt = np.empty(dtype=mpfr_complex, shape=(3));
+            bdry_pt = np.array( np.zeros( (3)).astype(np.int64),dtype=mpfr_complex)   
+
+            print(dir(bdry_pt))
+
+
             track_success_code = tracker.track_path(bdry_pt,t_start, t_endgame_boundary, start_point);
-            bdry_points[i] = bdry_pt;
+            bdry_points.append(bdry_pt);
 
             self.assertEqual(track_success_code, SuccessCode.Success)
 
@@ -139,12 +145,18 @@ class EndgameTest(unittest.TestCase):
 
 
         final_homogenized_solutions = [np.empty(dtype=mpfr_complex, shape=(3,)) for i in range(n)]
+
+        print('tracking from boundary to final time')
         for i in range(n):
             default_precision(bdry_points[i][0].precision());
             final_system.precision(bdry_points[i][0].precision());
 
-            print(dir(bdry_points[i]))
-            track_success_code = my_endgame.run(mpfr_complex(t_endgame_boundary),bdry_points[i]);
+            print(bdry_points[i])
+
+            bdry_time = mpfr_complex(t_endgame_boundary)
+            print(bdry_time)
+            # print(final_system)
+            track_success_code = my_endgame.run(bdry_time,bdry_points[i]);
             print('qwfp')
             
 
