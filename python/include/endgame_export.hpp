@@ -13,7 +13,7 @@
 //You should have received a copy of the GNU General Public License
 //along with python/endgame_export.hpp.  If not, see <http://www.gnu.org/licenses/>.
 //
-// Copyright(C) 2016-2018 by Bertini2 Development Team
+// Copyright(C) 2016-2024 by Bertini2 Development Team
 //
 // See <http://www.gnu.org/licenses/> for a copy of the license, 
 // as well as COPYING.  Bertini2 is provided with permitted 
@@ -23,7 +23,7 @@
 //
 //  silviana amethyst
 //  University of Notre Dame
-//  Summer 2016
+//  Summer 2016, Summer 2023, Fall 2024
 //
 //
 //  python/endgame_export.hpp:  Header file for exposing endgames to python.
@@ -53,26 +53,20 @@ namespace bertini{
 			
 		private:
 
-			using CT = typename TrackerTraits<typename EndgameT::TrackerType>::BaseComplexType;
-			using RT = typename TrackerTraits<typename EndgameT::TrackerType>::BaseRealType;
+			using BCT = typename TrackerTraits<typename EndgameT::TrackerType>::BaseComplexType;
+			using BRT = typename TrackerTraits<typename EndgameT::TrackerType>::BaseRealType;
 			using BaseEGT = typename EndgameT::BaseEGT;
 
-			template <typename T>
-			using sc_of_time_space = SuccessCode (BaseEGT::*)(T const&, Vec<T> const&);
-			template <typename T>
-			using sc_of_time_space_time = SuccessCode (BaseEGT::*)(T const&, Vec<T> const&, T const&);
+			static
+			SuccessCode WrapRunDefaultTime(EndgameT & self, BCT const& t, const Eigen::Ref<const Vec<BCT>> s){
+				return self.Run(t, s);
+			}
 
-			template <typename T>
-			static sc_of_time_space<T> RunDefaultTime()
-			{
-				return &BaseEGT::Run;
-			};
+			static
+			SuccessCode WrapRunCustomTime(EndgameT & self, BCT const& t, const Eigen::Ref<const Vec<BCT>> s, BCT const& u){
+				return self.Run(t, s, u);
+			}
 
-			template <typename T>
-			static sc_of_time_space_time<T> RunCustomTime()
-			{
-				return &BaseEGT::Run;
-			};
 			
 			using unsigned_of_void = unsigned (BaseEGT::*)() const;
 			static unsigned_of_void GetCycleNumberFn()
@@ -105,8 +99,8 @@ namespace bertini{
 			
 		private:
 
-			using CT = typename TrackerTraits<typename PowerSeriesT::TrackerType>::BaseComplexType;
-			using RT = typename TrackerTraits<typename PowerSeriesT::TrackerType>::BaseRealType;
+			using BCT = typename TrackerTraits<typename PowerSeriesT::TrackerType>::BaseComplexType;
+			using BRT = typename TrackerTraits<typename PowerSeriesT::TrackerType>::BaseRealType;
 
 
 		};// CauchyVisitor class
@@ -128,8 +122,8 @@ namespace bertini{
 			
 		private:
 
-			using CT = typename TrackerTraits<typename CauchyT::TrackerType>::BaseComplexType;
-			using RT = typename TrackerTraits<typename CauchyT::TrackerType>::BaseRealType;
+			using BCT = typename TrackerTraits<typename CauchyT::TrackerType>::BaseComplexType;
+			using BRT = typename TrackerTraits<typename CauchyT::TrackerType>::BaseRealType;
 
 
 		};// CauchyVisitor class

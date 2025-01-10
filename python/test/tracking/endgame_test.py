@@ -70,9 +70,9 @@ class EndgameTest(unittest.TestCase):
         x = Variable("x");
         y = Variable("y");
         t = Variable("t");
-        #
+        
         sys = System();
-        #
+        
         var_grp = VariableGroup();
         var_grp.append(x);
         var_grp.append(y);
@@ -99,13 +99,10 @@ class EndgameTest(unittest.TestCase):
         final_system = (1-t)*sys + gamma*t*td;
         final_system.add_path_variable(t);
 
-        print(final_system)
         prec_config = AMPConfig(final_system);
 
         stepping_pref = SteppingConfig();
         newton_pref = NewtonConfig();
-
-
 
         tracker = AMPTracker(final_system);
 
@@ -113,24 +110,25 @@ class EndgameTest(unittest.TestCase):
         tracker.precision_setup(prec_config);
 
         num_paths_to_track = td.num_start_points();
-        n = int(str(num_paths_to_track));
+        n = int(str(num_paths_to_track)); # this line sucks, wtf.
 
         t_start = mpfr_complex(1);
         t_endgame_boundary = mpfr_complex("0.1");
         t_final = mpfr_complex(0);
 
-        bdry_points = [np.empty(dtype=mpfr_complex, shape=(3,)) for i in range(n)]
+        bdry_points = []
+
         for i in range(n):
             default_precision(self.ambient_precision);
             final_system.precision(self.ambient_precision);
             start_point = td.start_point_mp(i);
 
-            bdry_pt = np.empty(dtype=mpfr_complex, shape=(3));
+            bdry_pt = np.array( np.zeros( (3)).astype(np.int64),dtype=mpfr_complex)   
+
             track_success_code = tracker.track_path(bdry_pt,t_start, t_endgame_boundary, start_point);
-            bdry_points[i] = bdry_pt;
+            bdry_points.append(bdry_pt);
 
             self.assertEqual(track_success_code, SuccessCode.Success)
-
 
 
         tracker.setup(Predictor.HeunEuler, 1e-6, 1e5, stepping_pref, newton_pref);
@@ -139,18 +137,27 @@ class EndgameTest(unittest.TestCase):
 
 
         final_homogenized_solutions = [np.empty(dtype=mpfr_complex, shape=(3,)) for i in range(n)]
+
         for i in range(n):
             default_precision(bdry_points[i][0].precision());
             final_system.precision(bdry_points[i][0].precision());
 
-            print(dir(bdry_points[i]))
-            track_success_code = my_endgame.run(mpfr_complex(t_endgame_boundary),bdry_points[i]);
-            print('qwfp')
-            
+            bdry_time = mpfr_complex(t_endgame_boundary)
+
+            track_success_code = my_endgame.run(bdry_time,bdry_points[i]); # should be bdry_pts[i], not XXX
+        
 
             final_homogenized_solutions[i] = my_endgame.final_approximation();
-            print(final_system.dehomogenize_point(final_homogenized_solutions[i]));
+
             self.assertEqual(track_success_code, SuccessCode.Success)
+
+        dehomogenized_solns = [sys.dehomogenize_point(soln) for soln in final_homogenized_solutions]
+
+        exact_soln = np.array([1,1])
+
+        for soln in dehomogenized_solns:
+            assert np.sqrt(np.sum((exact_soln - soln)**2)) < 1e-10
+
 
 
 if run_tests:

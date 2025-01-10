@@ -408,17 +408,14 @@ namespace bertini{
 			IMPLICITLY_CONVERTIBLE(long,T);
 			IMPLICITLY_CONVERTIBLE(int64_t,T);
 
+			eigenpy::EigenToPyConverter<Vec<T>>::registration();
+			eigenpy::EigenToPyConverter<Mat<T>>::registration();
 			eigenpy::EigenFromPyConverter<Vec<T>>::registration();
   		eigenpy::EigenFromPyConverter<Mat<T>>::registration();
 
 		}
 
-
 		size_t get_default_align(){return EIGENPY_DEFAULT_ALIGN_BYTES;}
-
-		auto FunctionTakingAVector(Vec<mpfr_complex> const& v){
-			return v.size();
-		}
 
 
 		void ExposeComplex()
@@ -491,8 +488,6 @@ namespace bertini{
 			boost::python::def("precision", &get_precision_vector<mpfr_complex>, "get the precision of a vector of complexes");
 
 			boost::python::def("default_align_bytes", &get_default_align);
-
-			boost::python::def("example_function", &FunctionTakingAVector);
 
 		}
 

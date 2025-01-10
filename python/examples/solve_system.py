@@ -18,6 +18,7 @@ C = pb.multiprec.Complex
 variable_values = np.array([C(0), C(0)])
 
 result = sys.eval(variable_values)
+print(result)
 
 sys.homogenize()
 sys.auto_patch()

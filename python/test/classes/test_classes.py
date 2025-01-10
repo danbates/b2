@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with python/test/b2_class_test.py.  If not, see <http://www.gnu.org/licenses/>.
 # 
-#  Copyright(C) 2016-2018 by Bertini2 Development Team
+#  Copyright(C) 2016-2025 by Bertini2 Development Team
 # 
 #  See <http://www.gnu.org/licenses/> for a copy of the license, 
 #  as well as COPYING.  Bertini2 is provided with permitted 
@@ -25,6 +25,8 @@
 #   West Texas A&M University
 #   Spring 2016
 # 
+# silviana amethyst
+# spring 2025
 
 from __future__ import print_function
 
@@ -33,13 +35,14 @@ import classes.function_tree_test as function_tree_test
 import classes.differentiation_test as differentiation_test
 import classes.system_test as system_test
 import classes.parser_test as parser_test
+import classes.eigenpy_numpy as eigenpy_numpy
 
 import unittest
 
 
 
 
-mods = (mpfr_test, function_tree_test, differentiation_test, system_test, parser_test)
+mods = (mpfr_test, function_tree_test, differentiation_test, system_test, parser_test, eigenpy_numpy)
 suite = unittest.TestSuite();
 print(mods)
 for tests in mods:
